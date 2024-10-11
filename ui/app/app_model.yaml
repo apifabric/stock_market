@@ -1,0 +1,458 @@
+about:
+  date: October 11, 2024 14:57:10
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  Broker:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: website
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: A table to store stock brokers' information.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: A table to store stock brokers' information.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: Broker
+  Company:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: industry
+      template: text
+      type: VARCHAR
+    - name: headquarters
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: A table to store company information in the stock market.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: A table to store company information in the stock market.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - company_id
+      name: StockList
+      resource: Stock
+    type: Company
+  DailyStockPrice:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: stock_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: date
+      required: true
+      template: date
+      type: DATETIME
+    - name: open_price
+      required: true
+      template: real
+      type: FLOAT
+    - name: close_price
+      required: true
+      template: real
+      type: FLOAT
+    description: A table to store daily price history of stocks.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: A table to store daily price history of stocks.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - stock_id
+      name: stock
+      resource: Stock
+    type: DailyStockPrice
+  Dividend:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: stock_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: dividend_date
+      required: true
+      template: date
+      type: DATETIME
+    - name: amount
+      required: true
+      template: real
+      type: FLOAT
+    description: A table to store dividend records issued by companies.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: A table to store dividend records issued by companies.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - stock_id
+      name: stock
+      resource: Stock
+    type: Dividend
+  Exchange:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: country
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: A table to store stock exchange information.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: A table to store stock exchange information.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: Exchange
+  Investor:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: email
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: A table to store information about investors.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: A table to store information about investors.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - investor_id
+      name: PortfolioList
+      resource: Portfolio
+    type: Investor
+  MarketIndice:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: symbol
+      required: true
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    - name: last_updated
+      template: date
+      type: DATETIME
+    description: A table to store market indices information.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: A table to store market indices information.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: MarketIndice
+  MarketNew:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: headline
+      required: true
+      template: text
+      type: VARCHAR
+    - name: content
+      template: text
+      type: TEXT
+    - name: date_posted
+      template: date
+      type: DATETIME
+    description: A table to store news related to the stock market.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: A table to store news related to the stock market.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: MarketNew
+  Portfolio:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: investor_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: created_date
+      template: date
+      type: DATETIME
+    description: A table to store information about investor portfolios.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: A table to store information about investor portfolios.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - portfolio_id
+      name: StockTransactionList
+      resource: StockTransaction
+    - direction: toone
+      fks:
+      - investor_id
+      name: investor
+      resource: Investor
+    type: Portfolio
+  SectorPerformance:
+    columns:
+    - label: ' sector_name*'
+      name: sector_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: performance_date
+      required: true
+      template: date
+      type: DATETIME
+    - name: performance_score
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: A table to store performance information by sector.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: sector_name
+    home_template: home_template.html
+    info_list: A table to store performance information by sector.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: SectorPerformance
+  Stock:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: company_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: symbol
+      required: true
+      template: text
+      type: VARCHAR
+    - name: listing_date
+      template: date
+      type: DATETIME
+    description: A table to store stock information of companies.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: A table to store stock information of companies.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - stock_id
+      name: DailyStockPriceList
+      resource: DailyStockPrice
+    - direction: tomany
+      fks:
+      - stock_id
+      name: DividendList
+      resource: Dividend
+    - direction: tomany
+      fks:
+      - stock_id
+      name: StockTransactionList
+      resource: StockTransaction
+    - direction: toone
+      fks:
+      - company_id
+      name: company
+      resource: Company
+    type: Stock
+  StockTransaction:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: portfolio_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: stock_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: transaction_type
+      required: true
+      template: text
+      type: VARCHAR
+    - name: quantity
+      required: true
+      template: integer
+      type: INTEGER
+    - name: transaction_date
+      template: date
+      type: DATETIME
+    description: A table to store buy/sell stock transactions associated with portfolios.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: A table to store buy/sell stock transactions associated with portfolios.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - portfolio_id
+      name: portfolio
+      resource: Portfolio
+    - direction: toone
+      fks:
+      - stock_id
+      name: stock
+      resource: Stock
+    type: StockTransaction
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

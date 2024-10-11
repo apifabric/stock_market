@@ -1,0 +1,60 @@
+<o-form #StockTransactionForm attr="StockTransaction_form_insert" service="StockTransaction" entity="StockTransaction" 
+keys="id" fxLayout="column" show-header="yes" header-actions="I"
+horizontal-scroll="yes"
+after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInsertMode()">
+
+<o-row attr="row1" layout-align="start stretch">
+  <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+    
+        <o-integer-input #id attr="id" label=" id*" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-list-picker 
+        attr="portfolio_id"
+        service="Portfolio" 
+        entity="PortfolioType"
+        fxFlex="30" 
+        query-on-init="no" 
+        query-on-bind="yes" 
+        required="yes" 
+        enabled="yes" 
+        filter="yes"
+        value-column="id" 
+        value-column-type="INTEGER"  
+        keys="id" 
+        columns="id;portfolio_id;id" 
+        title="portfolio_id"
+        visible-columns="id;id" 
+        separator=" - " width="680px" class="form-field">
+</o-list-picker>
+      
+        <o-list-picker 
+        attr="stock_id"
+        service="Stock" 
+        entity="StockType"
+        fxFlex="30" 
+        query-on-init="no" 
+        query-on-bind="yes" 
+        required="yes" 
+        enabled="yes" 
+        filter="yes"
+        value-column="id" 
+        value-column-type="INTEGER"  
+        keys="id" 
+        columns="id;stock_id;id" 
+        title="stock_id"
+        visible-columns="id;id" 
+        separator=" - " width="680px" class="form-field">
+</o-list-picker>
+      
+        <o-text-input #transaction_type attr="transaction_type" label="transaction_type" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-integer-input #quantity attr="quantity" label="quantity" type="integer" editable="no" required="yes" ></o-integer-input>
+      
+        <o-date-input #transaction_date attr="transaction_date" type="timestamp" label="transaction_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+      
+</div>
+</o-row>
+
+<div layout-padding></div>
+
+</o-form>

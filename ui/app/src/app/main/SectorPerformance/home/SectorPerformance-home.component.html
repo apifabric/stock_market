@@ -1,0 +1,37 @@
+<o-form-layout-manager attr="SectorPerformance" mode="dialog" title="SECTORPERFORMANCE">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="SectorPerformanceTable" 
+            service="SectorPerformance" 
+            entity="SectorPerformance" 
+            title="SECTORPERFORMANCE"
+            keys="id"
+            columns="sector_name;performance_date;performance_score;id" 
+            header-actions="R;D"
+            visible-columns="sector_name;performance_date;performance_score;id"  
+            sort-columns="sector_name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #sector_name attr="sector_name" title=" sector_name*" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-date-input #performance_date attr="performance_date" type="timestamp" label="performance_date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-column #performance_score attr="performance_score" title="performance_score" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

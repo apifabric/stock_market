@@ -1,0 +1,286 @@
+about:
+  date: October 11, 2024 14:57:10
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 6
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Broker:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: website
+    - name: id
+    description: A table to store stock brokers' information.
+    info_list: A table to store stock brokers' information.
+    type: Broker
+    user_key: name
+  Company:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: industry
+    - name: headquarters
+    - name: id
+    description: A table to store company information in the stock market.
+    info_list: A table to store company information in the stock market.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - company_id
+      name: StockList
+      resource: Stock
+    type: Company
+    user_key: name
+  DailyStockPrice:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: stock_id
+      required: true
+    - name: date
+      required: true
+    - name: open_price
+      required: true
+    - name: close_price
+      required: true
+    description: A table to store daily price history of stocks.
+    info_list: A table to store daily price history of stocks.
+    tab_groups:
+    - direction: toone
+      fks:
+      - stock_id
+      name: stock
+      resource: Stock
+    type: DailyStockPrice
+    user_key: id
+  Dividend:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: stock_id
+      required: true
+    - name: dividend_date
+      required: true
+    - name: amount
+      required: true
+    description: A table to store dividend records issued by companies.
+    info_list: A table to store dividend records issued by companies.
+    tab_groups:
+    - direction: toone
+      fks:
+      - stock_id
+      name: stock
+      resource: Stock
+    type: Dividend
+    user_key: id
+  Exchange:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: country
+    - name: id
+    description: A table to store stock exchange information.
+    info_list: A table to store stock exchange information.
+    type: Exchange
+    user_key: name
+  Investor:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: email
+    - name: id
+    description: A table to store information about investors.
+    info_list: A table to store information about investors.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - investor_id
+      name: PortfolioList
+      resource: Portfolio
+    type: Investor
+    user_key: name
+  MarketIndice:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: symbol
+      required: true
+    - name: id
+    - name: last_updated
+    description: A table to store market indices information.
+    info_list: A table to store market indices information.
+    type: MarketIndice
+    user_key: name
+  MarketNew:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: headline
+      required: true
+    - name: content
+    - name: date_posted
+    description: A table to store news related to the stock market.
+    info_list: A table to store news related to the stock market.
+    type: MarketNew
+    user_key: id
+  Portfolio:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: investor_id
+      required: true
+    - name: created_date
+    description: A table to store information about investor portfolios.
+    info_list: A table to store information about investor portfolios.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - portfolio_id
+      name: StockTransactionList
+      resource: StockTransaction
+    - direction: toone
+      fks:
+      - investor_id
+      name: investor
+      resource: Investor
+    type: Portfolio
+    user_key: id
+  SectorPerformance:
+    attributes:
+    - label: ' sector_name*'
+      name: sector_name
+      required: true
+      search: true
+      sort: true
+    - name: performance_date
+      required: true
+    - name: performance_score
+    - name: id
+    description: A table to store performance information by sector.
+    info_list: A table to store performance information by sector.
+    type: SectorPerformance
+    user_key: sector_name
+  Stock:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: company_id
+      required: true
+    - name: symbol
+      required: true
+    - name: listing_date
+    description: A table to store stock information of companies.
+    info_list: A table to store stock information of companies.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - stock_id
+      name: DailyStockPriceList
+      resource: DailyStockPrice
+    - direction: tomany
+      fks:
+      - stock_id
+      name: DividendList
+      resource: Dividend
+    - direction: tomany
+      fks:
+      - stock_id
+      name: StockTransactionList
+      resource: StockTransaction
+    - direction: toone
+      fks:
+      - company_id
+      name: company
+      resource: Company
+    type: Stock
+    user_key: id
+  StockTransaction:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: portfolio_id
+      required: true
+    - name: stock_id
+      required: true
+    - name: transaction_type
+      required: true
+    - name: quantity
+      required: true
+    - name: transaction_date
+    description: A table to store buy/sell stock transactions associated with portfolios.
+    info_list: A table to store buy/sell stock transactions associated with portfolios.
+    tab_groups:
+    - direction: toone
+      fks:
+      - portfolio_id
+      name: portfolio
+      resource: Portfolio
+    - direction: toone
+      fks:
+      - stock_id
+      name: stock
+      resource: Stock
+    type: StockTransaction
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

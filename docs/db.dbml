@@ -1,0 +1,95 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table Broker {
+    id INTEGER [primary key]
+    name VARCHAR 
+    website VARCHAR 
+    }
+
+Table Company {
+    id INTEGER [primary key]
+    name VARCHAR 
+    industry VARCHAR 
+    headquarters VARCHAR 
+    }
+
+Table DailyStockPrice {
+    id INTEGER [primary key]
+    stock_id INTEGER 
+    date DATETIME 
+    open_price FLOAT 
+    close_price FLOAT 
+    }
+
+Table Stock {
+    id INTEGER [primary key]
+    symbol VARCHAR 
+    company_id INTEGER 
+    listing_date DATETIME 
+    }
+
+Table Dividend {
+    id INTEGER [primary key]
+    stock_id INTEGER 
+    dividend_date DATETIME 
+    amount FLOAT 
+    }
+
+Table Exchange {
+    id INTEGER [primary key]
+    name VARCHAR 
+    country VARCHAR 
+    }
+
+Table Investor {
+    id INTEGER [primary key]
+    name VARCHAR 
+    email VARCHAR 
+    }
+
+Table MarketIndice {
+    id INTEGER [primary key]
+    name VARCHAR 
+    symbol VARCHAR 
+    last_updated DATETIME 
+    }
+
+Table MarketNew {
+    id INTEGER [primary key]
+    headline VARCHAR 
+    date_posted DATETIME 
+    content TEXT 
+    }
+
+Table Portfolio {
+    id INTEGER [primary key]
+    investor_id INTEGER 
+    created_date DATETIME 
+    }
+
+Table SectorPerformance {
+    id INTEGER [primary key]
+    sector_name VARCHAR 
+    performance_date DATETIME 
+    performance_score FLOAT 
+    }
+
+Table StockTransaction {
+    id INTEGER [primary key]
+    portfolio_id INTEGER 
+    stock_id INTEGER 
+    transaction_type VARCHAR 
+    quantity INTEGER 
+    transaction_date DATETIME 
+    }
+
+
+
+// Relationships
+    Ref: DailyStockPrice.(stock_id) < Stock.(id)
+    Ref: Stock.(company_id) < Company.(id)
+    Ref: Dividend.(stock_id) < Stock.(id)
+    Ref: Portfolio.(investor_id) < Investor.(id)
+    Ref: StockTransaction.(portfolio_id) < Portfolio.(id)
+    Ref: StockTransaction.(stock_id) < Stock.(id)
